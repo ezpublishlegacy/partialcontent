@@ -2,8 +2,8 @@ blend_partial_content:
     resource: "@BlendPartialContentBundle/Resources/config/routing.yml"
     prefix:   /
 
-eZDemoBundle:
-    resource: "@eZDemoBundle/Resources/config/routing.yml"
+#eZDemoBundle:
+#    resource: "@eZDemoBundle/Resources/config/routing.yml"
 
 _ezpublishRoutes:
     resource: "@EzPublishCoreBundle/Resources/config/routing/internal.yml"
