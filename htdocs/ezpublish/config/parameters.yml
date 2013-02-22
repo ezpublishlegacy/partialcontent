@@ -1,0 +1,9 @@
+parameters:
+    secret: zA3xPnUfXgNqFtjwCV4ubKoLWBcZiQHm
+    ezpublish_legacy.view.default_layout: BlendPartialContentBundle::pagelayout.html.twig
+
+    partialcontent.default.surround_type: template_look
+    partialcontent.default.root_location_id: 2
+    partialcontent.default.menu_content_types:
+      - blog
+

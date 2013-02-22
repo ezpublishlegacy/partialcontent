@@ -7,9 +7,7 @@
 /htdocs/ezpublish/cache/*
 /htdocs/ezpublish/logs/*
 /htdocs/ezpublish_legacy
-/htdocs/ezpublish/config/parameters.yml
 /htdocs/ezpublish/config/ezpublish_prod.yml
-/htdocs/ezpublish/config/ezpublish_dev.yml
 /htdocs/web/index_treemenu.php
 /htdocs/web/index_rest.php
 /htdocs/web/index_cluster.php
