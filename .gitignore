@@ -6,8 +6,6 @@
 /.idea/
 /htdocs/ezpublish/cache/*
 /htdocs/ezpublish/logs/*
-/htdocs/ezpublish/*.php
-/htdocs/ezpublish/console
 /htdocs/ezpublish_legacy
 /htdocs/ezpublish/config/parameters.yml
 /htdocs/ezpublish/config/ezpublish_prod.yml
