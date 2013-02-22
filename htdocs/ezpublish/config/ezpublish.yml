@@ -14,8 +14,10 @@ ezpublish:
         default_siteaccess: public
         match:
             Map\Host:
+                partialcontent.com: public
                 partialcontent.local: public
                 admin.partialcontent.local: site_admin
+                206.partialcontent.com: site_admin
 
     imagemagick:
         enabled: true
