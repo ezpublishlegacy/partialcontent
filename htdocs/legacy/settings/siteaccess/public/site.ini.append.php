@@ -8,9 +8,9 @@ SessionNamePerSiteAccess=disabled
 
 [SiteSettings]
 SiteName=Partial Content
-SiteURL=partialcontent.local
+SiteURL=partialcontent.com
 LoginPage=embedded
-AdditionalLoginFormActionURL=http://admin.partialcontent.local/user/login
+AdditionalLoginFormActionURL=http://admin.partialcontent.com/user/login
 
 [UserSettings]
 RegistrationEmail=
@@ -25,7 +25,7 @@ ShowHiddenNodes=false
 [DesignSettings]
 SiteDesign=partialcontent
 AdditionalSiteDesignList[]
-AdditionalSiteDesignList[]=ezflow
+#AdditionalSiteDesignList[]=ezflow
 AdditionalSiteDesignList[]=base
 AdditionalSiteDesignList[]=standard
 

@@ -5,7 +5,7 @@ EmailReceiver=
 
 [SiteSettings]
 SiteName=Partial Content
-SiteURL=partialcontent.local
+SiteURL=partialcontent.com
 DefaultPage=content/dashboard
 LoginPage=custom
 

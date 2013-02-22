@@ -23,11 +23,10 @@ ActiveExtensions[]=ezprestapiprovider
 SessionNameHandler=custom
 
 [SiteSettings]
-DefaultAccess=ezdemo_site_user
+DefaultAccess=public
 SiteList[]
-SiteList[]=ezdemo_site_user
-SiteList[]=eng
-SiteList[]=ezdemo_site_admin
+SiteList[]=public
+SiteList[]=site_admin
 RootNodeDepth=1
 
 [UserSettings]
@@ -36,14 +35,15 @@ LogoutRedirect=/
 [SiteAccessSettings]
 CheckValidity=false
 AvailableSiteAccessList[]
-AvailableSiteAccessList[]=ezdemo_site_user
-AvailableSiteAccessList[]=eng
-AvailableSiteAccessList[]=ezdemo_site_admin
+AvailableSiteAccessList[]=public
+AvailableSiteAccessList[]=site_admin
 MatchOrder=host
 HostMatchMapItems[]
-HostMatchMapItems[]=admin.partialcontent.local;ezdemo_site_admin
-HostMatchMapItems[]=partialcontent.local;ezdemo_site_user
-HostMatchMapItems[]=eng.1;eng
+HostMatchMapItems[]=partialcontent.com;public
+HostMatchMapItems[]=206.partialcontent.com;site_admin
+HostMatchMapItems[]=admin.partialcontent.com;site_admin
+HostMatchMapItems[]=admin.partialcontent.local;site_admin
+HostMatchMapItems[]=partialcontent.local;public
 
 [DesignSettings]
 DesignLocationCache=enabled
@@ -53,11 +53,11 @@ TranslationSA[]
 TranslationSA[eng]=Eng
 
 [FileSettings]
-VarDir=var/ezdemo_site
+VarDir=var/public
 
 [MailSettings]
 Transport=sendmail
-AdminEmail=info@example.com
+AdminEmail=sysadmin@blendinteractive.com
 EmailSender=
 
 [EmbedViewModeSettings]
