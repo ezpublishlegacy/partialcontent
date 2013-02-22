@@ -1,8 +1,13 @@
 /htdocs/vendor/
+*.swp
 .php~
+.DS_Store
 /nbproject/
 /.idea/
-/htdocs/ezpublish/cache/
+/htdocs/ezpublish/cache/*
+/htdocs/ezpublish/logs/*
+/htdocs/ezpublish/*.php
+/htdocs/ezpublish/console
 /htdocs/ezpublish_legacy
 /htdocs/ezpublish/config/parameters.yml
 /htdocs/ezpublish/config/ezpublish_prod.yml
@@ -16,4 +21,6 @@
 /htdocs/web/share
 /htdocs/web/var
 /htdocs/web/.htaccess
+/htdocs/src/EzSystems
 /htdocs/composer.phar
+/logs/*

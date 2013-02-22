@@ -1,0 +1,24 @@
+#This ezpublish.system preamble states the context these rules apply in
+ezpublish:
+    system:
+        # The siteaccess group
+        frontend_group:
+            location_view:
+                # Type of the view. 'full' is when an object represents the whole page
+                full:
+                    # name for our rule
+                    blog:
+                        # template to use
+                        template: BlendPartialContentBundle:full:blog.html.twig
+                        # when to use this template (when the ContentType is 'blog')
+                        match:
+                            Identifier\ContentType: blog
+                    blog_post:
+                        template: BlendPartialContentBundle:full:blog_post.html.twig
+                        match:
+                            Identifier\ContentType: blog_post
+                summary:
+                    blog_post:
+                        template: BlendPartialContentBundle:summary:blog_post.html.twig
+                        match:
+                            Identifier\ContentType: blog_post

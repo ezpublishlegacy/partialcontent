@@ -1,0 +1,26 @@
+{# Iterate over the list of posts and render each individually #}
+{% for post in posts %}
+    {{
+        render(
+            controller(
+                "ez_content:viewLocation",
+                {
+                    'locationId': post.contentInfo.mainLocationId,
+                    'viewType': viewType
+                }
+            )
+        )
+    }}
+{% endfor %}
+{% if navigator %}
+    {% include "BlendPartialContentBundle::navigator.html.twig" with
+    {
+        'total': total,
+        'url': path( paginationRoot ),
+        'offset': offset,
+        'limit': limit,
+        'next': next,
+        'prev': prev
+    }
+    %}
+{% endif %}

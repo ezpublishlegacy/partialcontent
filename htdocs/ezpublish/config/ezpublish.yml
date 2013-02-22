@@ -1,0 +1,57 @@
+imports:
+    - { resource: override.yml }
+    - { resource: image.yml }
+ezpublish:
+    siteaccess:
+        # Available siteaccesses
+        list:
+            - public
+            - site_admin
+        # Siteaccess groups. Use them to group common settings.
+        groups:
+            pc_group: [public, site_admin]
+            frontend_group: [public]
+        default_siteaccess: public
+        match:
+            Map\Host:
+                partialcontent.local: public
+                admin.partialcontent.local: site_admin
+
+    imagemagick:
+        enabled: true
+        # Absolute path to ImageMagick "convert" binary
+        path: /usr/bin/convert
+
+    # System settings, grouped by siteaccess and/or siteaccess group
+    system:
+        pc_group:
+            database:
+                type: mysql
+                user: partialcontent
+                password: insertrealpasswordhere
+                server: localhost
+                database_name: partialcontent
+            languages: [eng-US]
+        frontend_group:
+            # Session name will be common for all siteaccesses members of this group
+            # It means that session will be shared for frontend siteaccesses, but not with backoffice
+            session_name: PCSession
+        public:
+            content:
+                view_cache: true
+                ttl_cache: true
+                default_ttl: 30
+            # Define here your image variations (formerly known as "image aliases")
+            image_variations:
+                my_image_variation:
+                    reference: ~
+                    filters:
+                        - {name: geometry/scaledownonly, params: [400, 350]}
+                my_cropped_variation:
+                    reference: my_mage_variation
+                    filters:
+                        - {name: geometry/scalewidthdownonly, params: [300]}
+                        - {name: geometry/crop, params: [200, 200, 0, 0]}
+        site_admin:
+            # Use legacy mode to use the admin interface since everything needs to run via the legacy kernel
+            legacy_mode: true

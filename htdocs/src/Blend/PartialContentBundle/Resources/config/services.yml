@@ -1,0 +1,19 @@
+parameters:
+    blend_partial_content.blogcontroller.class: Blend\PartialContentBundle\Controller\BlogController
+    blend_partial_content.pre_content_view_listener.class: Blend\PartialContentBundle\EventListener\PreContentViewListener
+
+services:
+    blend_partial_content.controller:
+        class: %blend_partial_content.blogcontroller.class%
+        arguments: [@ezpublish.view_manager]
+        calls:
+            - [ setContainer, [@service_container] ]
+
+    pcblog:
+        alias: blend_partial_content.controller
+
+    blend_joe_blog.pre_content_view_listener:
+        class: %blend_partial_content.pre_content_view_listener.class%
+        arguments: [@ezpublish.api.repository, @ezpublish.config.resolver]
+        tags:
+            - {name: kernel.event_listener, event: ezpublish.pre_content_view, method: onPreContentView}

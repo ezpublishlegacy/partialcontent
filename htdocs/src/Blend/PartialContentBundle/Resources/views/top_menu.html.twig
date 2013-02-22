@@ -1,0 +1,14 @@
+<ul class="nav">
+    {% set path = '' %}
+    {% set parts = '' %}
+    {% if root.id == homeLocationId %}
+    <li class="home {{ selectedLocationId == homeLocationId ? ' active' }}">
+        <a href="{{ path( root ) }}">Home</a>
+    </li>
+    {% endif %}
+    {% for location in locations %}
+        {% set path = path( location ) %}
+        {% set parts = path|split( '/' )|reverse %}
+        <li class="{{parts[0]}}{{ location.id == selectedLocationId ? ' active' : '' }}"><a href="{{ path( location ) }}">{{ location.contentInfo.name }}</a></li>
+    {% endfor %}
+</ul>

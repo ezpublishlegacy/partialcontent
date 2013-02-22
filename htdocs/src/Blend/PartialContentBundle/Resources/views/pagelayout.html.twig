@@ -1,0 +1,89 @@
+{# Base HTML based on HTML Boilerplate and Twitter Bootstrap #}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{{ location.contentInfo.name }} - {{ surround.contentInfo.name }}</title>
+    <meta name="description" content="{{ surround.fields.meta_description['eng-US'].text }}">
+    <meta name="viewport" content="width=device-width">
+
+    {% stylesheets "bundles/blendpartialcontent/css/*" %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    {% javascripts
+        "bundles/blendpartialcontent/js/modernizr.js"
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+</head>
+<body>
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+<header
+        class="main-header"
+        style="background-image: url('{% block header_image %}{% spaceless %}
+                {% set headerImage = ez_image_alias(header_image, surround.versionInfo, 'headerimage') %}
+                /{{ headerImage.uri }}
+                {% endspaceless %}{% endblock %}');"
+        >
+    {# The block defines a piece of the template that can be overridden by other templates #}
+    {# See http://twig.sensiolabs.org/doc/templates.html#template-inheritance #}
+    {% block header %}
+        <div class="branding jumbotron subhead">
+            <div class="container">
+                <h1>{{ ez_render_field(surround, "title") }}</h1>
+            </div>
+        </div>
+        <nav class="navbar navbar-inverse">
+            <div class="navbar-inner">
+                <div class="container">
+                    {# You can nest blocks #}
+                    {% block topnav %}
+                        {{ render(controller("pcblog:menu", {'selected': location.id})) }}
+                    {% endblock %}
+                </div>
+            </div>
+        </nav>
+    {% endblock %}
+</header>
+
+<div class="container">
+    <div class="body">
+        <div class="row">
+            <div class="main span9">
+                {# eZ Publish uses the 'content' block as the main content of the page #}
+                {% block content %}{% endblock %}
+            </div>
+            <aside class="sidebar span3">
+                {% block sidebar %}
+                    {{ ez_render_field(surround, "sidebar") }}
+
+                {% endblock %}
+            </aside>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    {% block footer %}
+        {{ ez_render_field(surround, "footer") }}
+    {% endblock %}
+</footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+{% javascripts
+"bundles/blendpartialcontent/js/bootstrap.js"
+"bundles/blendpartialcontent/js/shCore.js"
+"bundles/blendpartialcontent/js/shBrush*.js"
+"bundles/blendpartialcontent/js/main.js"
+%}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+</body>
+</html>
