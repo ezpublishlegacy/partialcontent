@@ -1,6 +1,6 @@
 /htdocs/vendor/
 *.swp
-.php~
+*.php~
 .DS_Store
 /nbproject/
 /.idea/
