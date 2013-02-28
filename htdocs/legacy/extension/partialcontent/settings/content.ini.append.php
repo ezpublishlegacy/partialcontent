@@ -1,4 +1,6 @@
 <?php /* #?ini charset="utf-8"?
+[CustomTagSettings]
+AvailableCustomTags[]=well
 
 [literal]
 # Include the ability to spew raw HTML on to the page from the editor
