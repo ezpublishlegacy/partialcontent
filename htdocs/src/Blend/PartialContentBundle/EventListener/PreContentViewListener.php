@@ -9,6 +9,7 @@ namespace Blend\PartialContentBundle\EventListener;
 use eZ\Publish\Core\MVC\ConfigResolverInterface,
     eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent,
     eZ\Publish\API\Repository\Values\Content\Query,
+    eZ\Publish\API\Repository\Values\Content\Relation,
     eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator,
     eZ\Publish\API\Repository\Values\Content\Query\Criterion,
     eZ\Publish\API\Repository\Values\Content\Query\SortClause,
@@ -42,11 +43,36 @@ class PreContentViewListener
         $surround = $searchService->findSingle( new Criterion\ContentTypeIdentifier($surroundTypeIdentifier) );
         $header_image = $surround->getField('header_image');
         $contentView = $event->getContentView();
-        $contentView->addParameters(
-            array(
-                'surround' => $surround,
-                'header_image' => $header_image
-            )
+
+        $params = array(
+            'surround' => $surround,
+            'header_image' => $header_image
         );
+
+        if ($contentView->hasParameter('content')) {
+            $contentTypeService = $this->repository->getContentTypeService();
+            $contentService = $this->repository->getContentService();
+            $content = $contentView->getParameter('content');
+            $seriesType = $contentTypeService->loadContentTypeByIdentifier('series');
+
+            //Retrieve all the relationships
+            $relations = $contentService->loadReverseRelations($content->contentInfo);
+
+            $series = array();
+
+            //See if we have a related series
+            foreach ($relations as $relation) {
+                //Consider anything related by a field as a part of a series
+                if (
+                    $relation->type == Relation::FIELD &&
+                    $relation->sourceContentInfo->contentTypeId == $seriesType->id
+                ) {
+                    $series[] = $relation->sourceContentInfo;
+                }
+            }
+
+            $params['series']=$series;
+        }
+        $contentView->addParameters( $params );
     }
 }

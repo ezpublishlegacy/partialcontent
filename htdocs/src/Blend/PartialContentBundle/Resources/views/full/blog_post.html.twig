@@ -7,3 +7,26 @@
         </div>
     </article>
 {% endblock %}
+
+{% block sidebar %}
+    {% if series %}
+    {% for seriesItem in series %}
+        <div class="series well">
+            <h5>{{ seriesItem.name }}</h5>
+            {{ render(
+                controller(
+                        'pcblog:postsInSeries',
+                        {
+                            seriesId: seriesItem.id,
+                            contentId: content.id
+                        }
+                    )
+                )
+            }}
+        </div>
+    {% endfor %}
+    {% endif %}
+    
+    {{ parent() }}
+
+{% endblock %}

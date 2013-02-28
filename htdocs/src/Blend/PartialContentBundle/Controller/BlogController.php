@@ -4,6 +4,7 @@ namespace Blend\PartialContentBundle\Controller;
 use Symfony\Component\HttpFoundation\Response,
     eZ\Publish\Core\MVC\Symfony\Controller\Content\ViewController as APIViewController,
     eZ\Publish\API\Repository\Values\Content,
+    eZ\Publish\API\Repository\Values\Content\Relation,
     eZ\Publish\API\Repository\Values\Content\Query,
     eZ\Publish\API\Repository\Values\Content\Query\Criterion,
     eZ\Publish\API\Repository\Values\Content\Search\SearchResult,
@@ -14,6 +15,46 @@ use Symfony\Component\HttpFoundation\Response,
  */
 class BlogController extends APIViewController
 {
+
+    public function postsInSeries($seriesId, $contentId, $viewType='line')
+    {
+        $contentService = $this->getRepository()->getContentService();
+        $locationService = $this->getRepository()->getLocationService();
+
+        $seriesObject = $contentService->loadContent($seriesId);
+        $seriesInfo = $contentService->loadContentInfo($seriesId);
+
+        $object = $contentService->loadContentInfo($contentId);
+
+        $postIds = $seriesObject->getFieldValue('posts')->destinationContentIds;
+
+        $posts = array();
+
+        foreach ($postIds as $id) {
+            $contentInfo = $contentService->loadContentInfo($id);
+            $posts[] = $locationService->loadLocation($contentInfo->mainLocationId);
+        }
+
+        //$seriesLists[]=array('series'=>$singleSeries,'posts'=>$posts);
+
+        $response = $this->buildResponse(
+            __METHOD__ . $contentId,
+            $object->modificationDate
+        );
+
+        return $this->render(
+            'BlendPartialContentBundle::series_list.html.twig',
+            array(
+                'series'=>$seriesInfo,
+                'posts'=>$posts,
+                'content'=>$object,
+                'viewType'=>$viewType
+            ),
+            $response
+        );
+
+    }
+
     /**
      * postsByDate returns a formatted list of all posts beneath a location id(aka node id)
      * Posts are retrieved from the repository and returned in reverse chronological order
