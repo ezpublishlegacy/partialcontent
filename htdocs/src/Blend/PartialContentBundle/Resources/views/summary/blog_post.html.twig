@@ -2,6 +2,12 @@
 {% block content %}
     <article class="summary blog_post">
         <h2><a href="{{ path( location ) }}">{{ location.contentInfo.name }}</a></h2>
+        <div class="comment-count"><script>
+            var idcomments_acct = '25e2ad6aee59fd3fa19e5697aedaa86c';
+            var idcomments_post_id = "{{ content.id }}";
+            var idcomments_post_url = "http://partialcontent.com{{ path(location) }}";
+        </script>
+            <script type="text/javascript" src="http://www.intensedebate.com/js/genericLinkWrapperV2.js"></script></div>
         {# If the summary is empty, render the body #}
         {# This is likely not best practice since it's language-specific #}
         {% if content.fields.summary['eng-US'].xml|xmltext_to_html5 %}
