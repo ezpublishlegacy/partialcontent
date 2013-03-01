@@ -29,7 +29,7 @@
 <header
         class="main-header"
         style="background-image: url('{% block header_image %}{% spaceless %}
-                {% set headerImage = ez_image_alias(header_image, surround.versionInfo, 'headerimage') %}
+                {% set headerImage = ez_image_alias(header_image, header_image_version, 'headerimage') %}
                 /{{ headerImage.uri }}
                 {% endspaceless %}{% endblock %}');"
         >

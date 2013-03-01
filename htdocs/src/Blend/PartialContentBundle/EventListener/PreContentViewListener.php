@@ -43,10 +43,10 @@ class PreContentViewListener
         $surround = $searchService->findSingle( new Criterion\ContentTypeIdentifier($surroundTypeIdentifier) );
         $header_image = $surround->getField('header_image');
         $contentView = $event->getContentView();
-
         $params = array(
             'surround' => $surround,
-            'header_image' => $header_image
+            'header_image' => $header_image,
+            'header_image_version' => $surround->versionInfo
         );
 
         if ($contentView->hasParameter('content')) {
@@ -70,6 +70,15 @@ class PreContentViewListener
                     $series[] = $relation->sourceContentInfo;
                 }
             }
+
+            if (count($series)) {
+                $seriesHeaderObj = $contentService->loadContentByContentInfo($series[0]);
+                if ($seriesHeaderObj->getField('header_image')->value) {
+                    $params['header_image']=$seriesHeaderObj->getField('header_image');
+                    $params['header_image_version']=$seriesHeaderObj->versionInfo;
+                }
+            }
+
 
             $params['series']=$series;
         }

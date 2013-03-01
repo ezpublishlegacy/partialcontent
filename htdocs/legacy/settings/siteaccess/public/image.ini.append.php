@@ -17,6 +17,7 @@ AliasList[]=infoboximage
 AliasList[]=billboard
 AliasList[]=productthumbnail
 AliasList[]=productimage
+AliasList[]=headerimage
 
 [small]
 Reference=
@@ -92,4 +93,11 @@ Filters[]=geometry/scaledownonly=170;220
 Reference=
 Filters[]
 Filters[]=geometry/scaledownwidthonly=770
+
+[headerimage]
+Reference=
+Filters[]
+Filters[]=geometry/scaledownwidthonly=1920
+Filters[]=geometry/crop=1920;400;0;0
+
 */ ?>
