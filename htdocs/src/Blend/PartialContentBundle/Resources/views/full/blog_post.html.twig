@@ -6,6 +6,15 @@
             {{ ez_render_field( content, "body" ) }}
         </div>
     </article>
+    <div class="comments">
+        <script>
+            var idcomments_acct = '25e2ad6aee59fd3fa19e5697aedaa86c';
+            var idcomments_post_id = {{ content.id }};
+            var idcomments_post_url = "http://partialcontent.com{{ path(location) }}";
+        </script>
+        <span id="IDCommentsPostTitle" style="display:none"></span>
+        <script type='text/javascript' src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>
+    </div>
 {% endblock %}
 
 {% block sidebar %}
