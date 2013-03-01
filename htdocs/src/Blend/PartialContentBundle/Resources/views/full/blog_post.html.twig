@@ -12,21 +12,24 @@
     {% if series %}
     {% for seriesItem in series %}
         <div class="series well">
-            <h5>{{ seriesItem.name }}</h5>
-            {{ render(
+            <ul class="nav nav-list">
+                <li class="nav-header">{{ seriesItem.name }}</li>
+                <li class="divider"></li>
+                {{ render(
                 controller(
-                        'pcblog:postsInSeries',
-                        {
-                            seriesId: seriesItem.id,
-                            contentId: content.id
-                        }
-                    )
+                'pcblog:postsInSeries',
+                {
+                seriesId: seriesItem.id,
+                contentId: content.id
+                }
                 )
-            }}
+                )
+                }}
+            </ul>
         </div>
     {% endfor %}
     {% endif %}
-    
+
     {{ parent() }}
 
 {% endblock %}

@@ -72,6 +72,9 @@ header.main-header {
 
 .series .active a { text-decoration: none; color: black; }
 
+.sidebar .well {padding: 8px 0;}
+.sidebar .nav-list {list-style: none; margin-left: 0;}
+
 .syntaxhighlighter .script.twig { color: #d1edff !important; font-weight: normal !important; }
 
 @media only screen and (max-width: 960px) {

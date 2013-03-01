@@ -1,7 +1,5 @@
-<ul>
-    {% for post in posts %}
-        <li {% if content.id == post.contentInfo.id %} class="active" {% endif %} >
-            <a href="{{ path(post) }}">{{ post.contentInfo.name|split(series.name ~ " - ")[1] }}</a>
-        </li>
-    {% endfor %}
-</ul>
+{% for post in posts %}
+    <li {% if content.id == post.contentInfo.id %} class="active" {% endif %} >
+        <a href="{{ path(post) }}">{{ post.contentInfo.name|split(series.name ~ " - ")[1] }}</a>
+    </li>
+{% endfor %}

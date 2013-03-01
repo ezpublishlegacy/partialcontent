@@ -2,6 +2,18 @@
 [CustomTagSettings]
 AvailableCustomTags[]=well
 
+[ul]
+AvailableClasses[]=nav-list
+
+ClassDescription[nav]=Nav List
+
+[li]
+AvailableClasses[]=nav-header
+AvailableClasses[]=divider
+
+ClassDescription[nav-header]=Nav Header
+ClassDescription[divider]=Divider
+
 [literal]
 # Include the ability to spew raw HTML on to the page from the editor
 AvailableClasses[]=html
@@ -27,3 +39,4 @@ ClassDescription[code_javascript]=Syntax Highlights - Javascript
 ClassDescription[code_twig]=Syntax Highlights - Twig
 ClassDescription[code_xml]=Syntax Highlights - XML
 ClassDescription[code_yml]=Syntax Highlights - YAML
+
