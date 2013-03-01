@@ -1,3 +1,4 @@
-blend_partial_content_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: BlendPartialContentBundle:Default:index }
+blend_partial_content_feed:
+    pattern: /feed/pc
+    defaults:
+        _controller: blend_partial_content.controller:feed

@@ -10,7 +10,7 @@
     <title>{{ location.contentInfo.name }} - {{ surround.contentInfo.name }}</title>
     <meta name="description" content="{{ surround.fields.meta_description['eng-US'].text }}">
     <meta name="viewport" content="width=device-width">
-
+    <link rel="alternate" type="application/rss+xml" title="{{ surround.contentInfo.name }}" href="http://partialcontent.com/feed/pc" />
     {% stylesheets "bundles/blendpartialcontent/css/*" %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}

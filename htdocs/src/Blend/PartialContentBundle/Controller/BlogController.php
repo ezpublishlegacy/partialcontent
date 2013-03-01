@@ -8,7 +8,8 @@ use Symfony\Component\HttpFoundation\Response,
     eZ\Publish\API\Repository\Values\Content\Query,
     eZ\Publish\API\Repository\Values\Content\Query\Criterion,
     eZ\Publish\API\Repository\Values\Content\Search\SearchResult,
-    eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+    eZ\Publish\API\Repository\Values\Content\Query\SortClause,
+    ezcFeed;
 
 /**
  * BlogController provides basic sub-request methods used by the Partial Content Blog
@@ -244,6 +245,92 @@ class BlogController extends APIViewController
 
         //Return the content from the repository
         return $searchService->findContent( $query );
+    }
+
+    /**
+     * Build the RSS2 feed of the planet
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function feed($subTreeLocationId = 2)
+    {
+        $locationService = $this->getRepository()->getLocationService();
+        $urlAliasService = $this->getRepository()->getURLAliasService();
+
+        $root = $locationService->loadLocation( $subTreeLocationId );
+
+        $postResults = $this->fetchSubTree(
+            $root,
+            array('blog_post'),
+            array( new SortClause\DatePublished( Query::SORT_DESC ) ),
+            true,
+            20
+        );
+
+        $modificationDate = $root->contentInfo->modificationDate;
+
+        $posts = array();
+        foreach ( $postResults->searchHits as $hit )
+        {
+            $posts[] = $hit->valueObject;
+
+            //If any of the posts is newer than the root, use that post's modification date
+            if ($hit->valueObject->contentInfo->modificationDate > $modificationDate) {
+                $modificationDate = $hit->valueObject->contentInfo->modificationDate;
+            }
+        }
+
+        $response = $this->buildResponse(
+            __FUNCTION__ . $subTreeLocationId,
+            $modificationDate
+        );
+
+        if ( $response->isNotModified( $this->getRequest() ) )
+        {
+            return $response;
+        }
+
+        $feed = new ezcFeed();
+        $feed->title = 'Partial Content';
+        $feed->description = '';
+        $feed->published = time();
+        $feed->updated = $modificationDate;
+        $link = $feed->add( 'link' );
+        $link->href = 'http://partialcontent.com';
+
+        foreach ( $posts as $post )
+        {
+            $location = $locationService->loadLocation(
+                $post->contentInfo->mainLocationId
+            );
+            $item = $feed->add( 'item' );
+            $item->title = htmlspecialchars(
+                $post->contentInfo->name, ENT_NOQUOTES, 'UTF-8'
+            );
+            $guid = $item->add( 'id' );
+            $guid->id = $location->remoteId;
+            $guid->isPermaLink = "false";
+            $item->link = "http://partialcontent.com" . $urlAliasService->reverseLookup($location)->path;
+            $item->pubDate = $post->contentInfo->modificationDate; //$post->getField( 'date' )->value->value;
+            $item->published =  $post->contentInfo->modificationDate; // $post->getField( 'date' )->value->value;
+            //echo "<pre>"; print_r($post->getFieldValue('body')); echo "</pre>";
+
+            $item->description = $post->getFieldValue( 'body' )->xml->textContent;
+            $dublinCore = $item->addModule( 'DublinCore' );
+            $creator = $dublinCore->add( 'creator' );
+            //$parentLocation =
+            $creator->name = htmlspecialchars(
+                $locationService->loadLocation(
+                    $location->parentLocationId
+                )->contentInfo->name,
+                ENT_NOQUOTES, 'UTF-8'
+            );
+        }
+
+        $xml = $feed->generate( 'rss2' );
+        $response->headers->set( 'content-type', $feed->getContentType() );
+        $response->setContent( $xml );
+        return $response;
     }
 
 }
