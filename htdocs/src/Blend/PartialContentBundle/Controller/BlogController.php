@@ -294,9 +294,16 @@ class BlogController extends APIViewController
         $feed->title = 'Partial Content';
         $feed->description = '';
         $feed->published = time();
+        $pc = new \ezcFeedPersonElement();
+        $pc->name = "Partial Content";
+        $pc->uri = "http://partialcontent.com";
+        $feed->author = $pc;
         $feed->updated = $modificationDate;
+        $feed->id = "http://partialcontent.com/feed/pc";
         $link = $feed->add( 'link' );
         $link->href = 'http://partialcontent.com';
+
+        $converter = $this->container->get("ezpublish.fieldType.ezxmltext.converter.html5");
 
         foreach ( $posts as $post )
         {
@@ -312,10 +319,16 @@ class BlogController extends APIViewController
             $guid->isPermaLink = "false";
             $item->link = "http://partialcontent.com" . $urlAliasService->reverseLookup($location)->path;
             $item->pubDate = $post->contentInfo->modificationDate; //$post->getField( 'date' )->value->value;
+            $item->updated = $post->contentInfo->modificationDate;
             $item->published =  $post->contentInfo->modificationDate; // $post->getField( 'date' )->value->value;
             //echo "<pre>"; print_r($post->getFieldValue('body')); echo "</pre>";
 
-            $item->description = $post->getFieldValue( 'body' )->xml->textContent;
+            $html = $converter->convert($post->getFieldValue( 'body' )->xml);
+            $item->description = $html;
+            $joe = new \ezcFeedPersonElement();
+            $joe->name = "Joe Kepley";
+            $joe->uri = "http://partialcontent.com";
+            $item->author = $joe;
             $dublinCore = $item->addModule( 'DublinCore' );
             $creator = $dublinCore->add( 'creator' );
             //$parentLocation =
@@ -325,9 +338,10 @@ class BlogController extends APIViewController
                 )->contentInfo->name,
                 ENT_NOQUOTES, 'UTF-8'
             );
+
         }
 
-        $xml = $feed->generate( 'rss2' );
+        $xml = $feed->generate( 'atom' );
         $response->headers->set( 'content-type', $feed->getContentType() );
         $response->setContent( $xml );
         return $response;
