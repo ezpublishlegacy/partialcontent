@@ -294,10 +294,10 @@ class BlogController extends APIViewController
         $feed->title = 'Partial Content';
         $feed->description = '';
         $feed->published = time();
-        $pc = new \ezcFeedPersonElement();
+        $feed->description = "A blog about code and stuff from Joe Kepley";
+        $pc = $feed->add('author');
         $pc->name = "Partial Content";
         $pc->uri = "http://partialcontent.com";
-        $feed->author = $pc;
         $feed->updated = $modificationDate;
         $feed->id = "http://partialcontent.com/feed/pc";
         $link = $feed->add( 'link' );
@@ -315,8 +315,8 @@ class BlogController extends APIViewController
                 $post->contentInfo->name, ENT_NOQUOTES, 'UTF-8'
             );
             $guid = $item->add( 'id' );
-            $guid->id = $location->remoteId;
-            $guid->isPermaLink = "false";
+            $guid->id = "http://partialcontent.com" . $urlAliasService->reverseLookup($location)->path;
+            $guid->isPermaLink = "true";
             $item->link = "http://partialcontent.com" . $urlAliasService->reverseLookup($location)->path;
             $item->pubDate = $post->contentInfo->modificationDate; //$post->getField( 'date' )->value->value;
             $item->updated = $post->contentInfo->modificationDate;
@@ -324,8 +324,11 @@ class BlogController extends APIViewController
             //echo "<pre>"; print_r($post->getFieldValue('body')); echo "</pre>";
 
             $html = $converter->convert($post->getFieldValue( 'body' )->xml);
+
             $item->description = $html;
-            $joe = new \ezcFeedPersonElement();
+            $item->description->type='html';
+
+            $joe = $item->add('author');
             $joe->name = "Joe Kepley";
             $joe->uri = "http://partialcontent.com";
             $item->author = $joe;
