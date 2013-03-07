@@ -25,7 +25,6 @@ ShowHiddenNodes=false
 [DesignSettings]
 SiteDesign=partialcontent
 AdditionalSiteDesignList[]
-#AdditionalSiteDesignList[]=ezflow
 AdditionalSiteDesignList[]=base
 AdditionalSiteDesignList[]=standard
 

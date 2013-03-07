@@ -8,15 +8,15 @@ ActiveExtensions[]=eztags
 ActiveExtensions[]=ezautosave
 ActiveExtensions[]=ezoe
 ActiveExtensions[]=ezformtoken
-ActiveExtensions[]=ezstarrating
-ActiveExtensions[]=ezgmaplocation
+#ActiveExtensions[]=ezstarrating
+#ActiveExtensions[]=ezgmaplocation
 ActiveExtensions[]=partialcontent
-ActiveExtensions[]=ezdemo
-ActiveExtensions[]=ezwt
-ActiveExtensions[]=ezflow
+#ActiveExtensions[]=ezdemo
+#ActiveExtensions[]=ezwt
+#ActiveExtensions[]=ezflow
 ActiveExtensions[]=ezcomments
 ActiveExtensions[]=ezie
-ActiveExtensions[]=ezodf
+#ActiveExtensions[]=ezodf
 ActiveExtensions[]=ezprestapiprovider
 
 [Session]
