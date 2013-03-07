@@ -18,7 +18,9 @@ use eZ\Publish\Core\MVC\ConfigResolverInterface,
 
 class PreContentViewListener
 {
-
+    /**
+     * @var \eZ\Publish\Core\MVC\ConfigResolverInterface
+     */
     protected $configResolver;
 
     /**
@@ -27,22 +29,41 @@ class PreContentViewListener
     protected $repository;
 
 
-
+    /**
+     * Constructs our listener and loads it with access to the eZ Publish repository and config
+     * @param \eZ\Publish\API\Repository\Repository $repository
+     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
+     */
     public function __construct( Repository $repository, ConfigResolverInterface $configResolver )
     {
         $this->repository = $repository;
         $this->configResolver = $configResolver;
     }
 
+    /**
+     * Fires just before the page is rendered
+     * @param \eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent $event
+     */
     public function onPreContentView( PreContentViewEvent $event )
     {
+        //What's our design/surround object in the repository called? Check the config
         $surroundTypeIdentifier = $this->configResolver->getParameter('surround_type', 'partialcontent');
 
-        //Retrieve the surround object
+        //To retrieve the surround object, first access the repository
         $searchService = $this->repository->getSearchService();
-        $surround = $searchService->findSingle( new Criterion\ContentTypeIdentifier($surroundTypeIdentifier) );
+
+        //Find the first object that matched the name from our config
+        $surround = $searchService->findSingle(
+            new Criterion\ContentTypeIdentifier($surroundTypeIdentifier)
+        );
+
+        //Get the header image field from the surround
         $header_image = $surround->getField('header_image');
+
+        //Retrieve the view context from the event
         $contentView = $event->getContentView();
+
+
         $params = array(
             'surround' => $surround,
             'header_image' => $header_image,
