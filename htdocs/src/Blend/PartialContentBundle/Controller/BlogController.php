@@ -302,6 +302,12 @@ class BlogController extends APIViewController
         $feed->id = "http://partialcontent.com/feed/pc";
         $link = $feed->add( 'link' );
         $link->href = 'http://partialcontent.com';
+        $link->type = "text/html";
+
+        $selfLink = $feed->add('link');
+        $selfLink->href = "http://partialcontent.com/feed/pc";
+        $selfLink->rel = "self";
+        $selfLink->type = "application/atom+xml";
 
         $converter = $this->container->get("ezpublish.fieldType.ezxmltext.converter.html5");
 
