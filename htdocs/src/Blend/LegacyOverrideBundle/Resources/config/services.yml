@@ -1,0 +1,7 @@
+parameters:
+#    blend_legacy_override.example.class: Blend\LegacyOverrideBundle\Example
+
+services:
+#    blend_legacy_override.example:
+#        class: %blend_legacy_override.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

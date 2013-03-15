@@ -45,6 +45,7 @@ class EzPublishKernel extends Kernel
             //new EzSystemsDemoBundle(),
             new EzPublishRestBundle(),
             new Blend\PartialContentBundle\BlendPartialContentBundle(),
+            new Blend\LegacyOverrideBundle\BlendLegacyOverrideBundle(),
         );
 
         if ( $this->getEnvironment() === 'dev' )

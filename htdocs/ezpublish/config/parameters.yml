@@ -7,3 +7,6 @@ parameters:
     partialcontent.default.menu_content_types:
       - blog
 
+    ezpublish_legacy.controller.class: Blend\LegacyOverrideBundle\Controller\LegacyKernelController
+    blend.legacyoverride.type:
+      - error
