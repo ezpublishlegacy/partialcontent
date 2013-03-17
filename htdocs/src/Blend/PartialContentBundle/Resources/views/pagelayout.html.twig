@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{{ location.contentInfo.name }} - {{ surround.contentInfo.name }}</title>
+    <title>{% block pagetitle %}{{ location.contentInfo.name }} - {{ surround.contentInfo.name }}{% endblock %}</title>
     <meta name="description" content="{{ surround.fields.meta_description['eng-US'].text }}">
     <meta name="viewport" content="width=device-width">
     <link rel="alternate" type="application/rss+xml" title="{{ surround.contentInfo.name }}" href="http://partialcontent.com/feed/pc" />

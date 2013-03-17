@@ -1,0 +1,34 @@
+{% extends noLayout ? viewbaseLayout : "BlendPartialContentBundle::pagelayout.html.twig" %}
+{% block pagetitle %}{% spaceless %}
+    {% for segment in module_result.path %}
+        {{ segment.text }}
+        {% if loop.last != true %} - {% endif %}
+    {% endfor %}
+{% endspaceless %}{% endblock %}
+{% block header_image %}{% endblock %}
+{% block header %}
+    <div class="branding jumbotron subhead">
+        <div class="container">
+            <h1>{{ module_result.path[0].text }}</h1>
+        </div>
+    </div>
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                {# You can nest blocks #}
+                {% block topnav %}
+                    {{ render(controller("pcblog:menu")) }}
+                {% endblock %}
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+{% block content %}
+    {{ module_result.content|raw }}
+{% endblock %}
+{% block sidebar %}
+    <!-- no sidebar -->
+{% endblock %}
+{% block footer %}
+    <!-- no footer -->
+{% endblock %}
