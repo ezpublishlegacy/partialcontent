@@ -70,6 +70,7 @@ class PreContentViewListener
             'header_image_version' => $surround->versionInfo
         );
 
+
         if ($contentView->hasParameter('content')) {
             $contentTypeService = $this->repository->getContentTypeService();
             $contentService = $this->repository->getContentService();
@@ -104,5 +105,6 @@ class PreContentViewListener
             $params['series']=$series;
         }
         $contentView->addParameters( $params );
+        
     }
 }

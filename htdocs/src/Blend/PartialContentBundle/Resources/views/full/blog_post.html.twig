@@ -15,6 +15,7 @@
         <span id="IDCommentsPostTitle" style="display:none"></span>
         <script type='text/javascript' src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>
     </div>
+
 {% endblock %}
 
 {% block sidebar %}
@@ -25,18 +26,22 @@
                 <li class="nav-header">{{ seriesItem.name }}</li>
                 <li class="divider"></li>
                 {{ render(
-                controller(
-                'pcblog:postsInSeries',
-                {
-                seriesId: seriesItem.id,
-                contentId: content.id
-                }
-                )
-                )
+                    controller(
+                        'pcblog:postsInSeries', {
+                            seriesId: seriesItem.id,
+                            contentId: content.id
+                        }
+                    )
+                   )
                 }}
             </ul>
         </div>
     {% endfor %}
+    {% else %}
+        <style type="text/css">
+            .sidebar { width: 0px; }
+            .main { margin-left: 120px; }
+        </style>
     {% endif %}
 
     {{ parent() }}

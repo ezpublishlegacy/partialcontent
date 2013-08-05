@@ -20,39 +20,40 @@
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+
+    
+
 </head>
 <body>
 <!--[if lt IE 7]>
 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
 
-<header
-        class="main-header"
-        style="background-image: url('{% block header_image %}{% spaceless %}
-                {% set headerImage = ez_image_alias(header_image, header_image_version, 'headerimage') %}
-                /{{ headerImage.uri }}
-                {% endspaceless %}{% endblock %}');"
-        >
+<header class="main-header">
     {# The block defines a piece of the template that can be overridden by other templates #}
     {# See http://twig.sensiolabs.org/doc/templates.html#template-inheritance #}
     {% block header %}
-        <div class="branding jumbotron subhead">
-            <div class="container">
-                <h1>{{ ez_render_field(surround, "title") }}</h1>
-            </div>
+        <div class="container title">
+            <!--h1>{# { ez_render_field(surround, "title") } #}</h1-->
+            <nav class="navbar">
+                {# You can nest blocks #}
+                {% block topnav %}
+                    {{ render(controller("pcblog:menu", {'selected': location.id})) }}
+                {% endblock %}
+            </nav>
         </div>
-        <nav class="navbar navbar-inverse">
-            <div class="navbar-inner">
-                <div class="container">
-                    {# You can nest blocks #}
-                    {% block topnav %}
-                        {{ render(controller("pcblog:menu", {'selected': location.id})) }}
-                    {% endblock %}
-                </div>
-            </div>
-        </nav>
+        <div class="header-image container">
+            <img src="{% block header_image %}{% spaceless %}
+                {% set headerImage = ez_image_alias(header_image, header_image_version, 'headerimage') %}
+                /{{ headerImage.uri }}
+                {% endspaceless %}{% endblock %}">
+             </div>
     {% endblock %}
+    <div class="container">{% block feature %}{% endblock %}</div>
+    {% block hex_links %}{% endblock %}
 </header>
+
+
 
 <div class="container">
     <div class="body">

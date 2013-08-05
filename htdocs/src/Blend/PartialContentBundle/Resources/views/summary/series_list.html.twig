@@ -1,6 +1,11 @@
 {% extends viewbaseLayout %}
 {% block content %}
-    <article class="summary blog_post">
+    {% if series %}
+        {% for seriesItem in series %}
+            {{ dump(content) }}
+        {% endfor %}
+    {% endif %}
+    <article class="summary series_list">
         <h2><a href="{{ path( location ) }}">{{ location.contentInfo.name }}</a></h2>
         <div class="comment-count"><script>
             var idcomments_acct = '25e2ad6aee59fd3fa19e5697aedaa86c';
@@ -12,12 +17,10 @@
         {# If the summary is empty, render the body #}
         {# This is likely not best practice since it's language-specific #}
 
-        {% if content.fields.summary['eng-US'].xml.textContent %}
+        {% if content.fields.summary['eng-US'].xml|xmltext_to_html5 %}
             {{ ez_render_field( content, "summary" ) }}
         {% else %}
-            <div class="ezxmltext-field"><p>
-                {{ attribute(content.fields.body, 'eng-US')|striptags[:500] }}...
-            </p></div>
+            {{ attribute(content.fields.body, 'eng-US')|striptags[:500] }}...
             {#{ ez_render_field( content, "body" ) }#}
         {% endif %}
         <div id="idc-container-parent" class="button orange">
@@ -34,22 +37,3 @@
 
     </article>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

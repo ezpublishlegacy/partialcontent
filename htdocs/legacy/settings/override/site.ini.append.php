@@ -1,5 +1,11 @@
 <?php /* #?ini charset="utf-8"?
 
+[]
+Server=localhost
+User=partialcontent
+Password=insertrealpasswordhere
+Database=partialcontent
+
 [ExtensionSettings]
 ActiveExtensions[]
 ActiveExtensions[]=ezjscore
@@ -8,15 +14,9 @@ ActiveExtensions[]=eztags
 ActiveExtensions[]=ezautosave
 ActiveExtensions[]=ezoe
 ActiveExtensions[]=ezformtoken
-#ActiveExtensions[]=ezstarrating
-#ActiveExtensions[]=ezgmaplocation
 ActiveExtensions[]=partialcontent
-#ActiveExtensions[]=ezdemo
-#ActiveExtensions[]=ezwt
-#ActiveExtensions[]=ezflow
 ActiveExtensions[]=ezcomments
 ActiveExtensions[]=ezie
-#ActiveExtensions[]=ezodf
 ActiveExtensions[]=ezprestapiprovider
 
 [Session]
@@ -66,4 +66,16 @@ AvailableViewModes[]=embed
 AvailableViewModes[]=embed-inline
 InlineViewModes[]
 InlineViewModes[]=embed-inline
+
+[DebugSettings]
+DebugOutput=disabled
+DebugRedirection=disabled
+
+[TemplateSettings]
+Debug=disabled
+ShowXHTMLCode=disabled
+ShowUsedTemplates=disabled
+
+[DatabaseSettings]
+SQLOutput=disabled
 */ ?>

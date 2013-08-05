@@ -1,0 +1,50 @@
+{% extends "BlendPartialContentBundle:full:blog.html.twig" %}
+
+{% block feature %} 
+    <style type="text/css">
+        .header-image { display: none; }
+        .sidebar { width: 0px; }
+        .main { margin-left: 120px; }
+    </style>
+
+    <script type="text/javascript">
+        $('#myCarousel').carousel('pause');
+        
+
+    </script>
+    {{ render(
+        controller(
+            "pcblog:feature",
+            {
+                'subTreeLocationId':location.id,
+                'feature_id':'0',
+                'locationId': content.contentInfo.mainLocationId
+            }
+        )
+    ) }}
+
+    
+{% endblock %}
+
+{% block hex_links %}
+<!--
+    <div id="hex-links">
+        <a class="hex-link" id="articles" href="#">
+            <img src="/design/standard/images/articles.png" class="hex-link articles">
+            <div class="text-link articles">Articles</div>
+        </a>
+        <a class="hex-link" id="links" href="#">
+            <img src="/design/standard/images/links.png" class="hex-link links">
+            <div class="text-link links">Links</div>
+        </a>
+        <a class="hex-link" id="tutorials" href="#">
+            <img src="/design/standard/images/tutorials.png" class="hex-link tutorials">
+            <div class="text-link tutorials">Tutorials</div>
+        </a>
+
+    </div>
+-->
+
+{% endblock %}
+
+

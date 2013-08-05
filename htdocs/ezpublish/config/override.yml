@@ -7,6 +7,12 @@ ezpublish:
                 # Type of the view. 'full' is when an object represents the whole page
                 full:
                     # name for our rule
+                    blog_home:
+                        # template to use
+                        template: BlendPartialContentBundle:full:blog_home.html.twig
+                        # when to use this template (when the ContentType is 'blog')
+                        match:
+                            Depth: 1
                     blog:
                         # template to use
                         template: BlendPartialContentBundle:full:blog.html.twig

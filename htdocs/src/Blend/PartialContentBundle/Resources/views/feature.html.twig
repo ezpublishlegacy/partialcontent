@@ -1,0 +1,58 @@
+
+
+<div id="myCarousel" class="carousel slide">
+    <div class="carousel-inner" >
+        {% for post in posts %}
+      
+            {% if post.fields.feature['eng-US'] == '1' %}
+                {% set feature_id = feature_id + 1 %}
+                {% set img = post.fields.feature_image['eng-US'] %}
+
+                {% if (feature_id == 1) and (img) %}
+                <div class="item with-image active" style="{{ attribute(post.fields, 'feature_style')['eng-US'] }};">
+                {% elseif (feature_id == 1) %}
+                <div class="item active" style="{{ attribute(post.fields, 'feature_style')['eng-US'] }};">
+                {% elseif (img) %}
+                <div class="item with-image" style="{{ attribute(post.fields, 'feature_style')['eng-US'] }};">
+                {% else %}
+                <div class="item" style="{{ attribute(post.fields, 'feature_style')['eng-US'] }};">
+                {% endif %}
+                    <div class="item-content">
+                        <article class="summary blog_post">
+                            <h2>{{ post.fields.title['eng-US'] }}</h2>
+                            <div class="ezxmltext-field">
+                                {% if post.fields.summary['eng-US'].xml.textContent %}
+                                    {{ ez_render_field( post, "summary" ) }}
+                                {% else %}
+                                    <div class="ezxmltext-field"><p>
+                                        {{ attribute(post.fields.body, 'eng-US')|striptags[:300] }}...
+                                    </p></div>
+                                {% endif %}
+                            </div>
+                            <div id="idc-container-parent" class="buttom white">
+                                <div class="idc-c-b">
+                                    <div class="idc-right" id="IDNewThreadSubmitLI">
+                                        <a class="idc-btn_l" href="#">
+                                            <span class="idc-r">Read More</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        
+                    {% if post.fields.feature_image['eng-US'] %}
+                        {{ ez_render_field( post, "feature_image" ) }}
+                    {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev"></a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next"></a>
+    
+
+</div>
+
+
+

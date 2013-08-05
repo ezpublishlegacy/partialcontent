@@ -66,7 +66,7 @@ class BlogController extends APIViewController
      * @param bool $navigator Whether to render a paginator
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function postsByDate($subTreeLocationId, $viewType='summary', $limit=10, $offset=0, $navigator=true)
+    public function postsByDate($subTreeLocationId, $viewType='summary', $limit=5, $offset=0, $navigator=true)
     {
         //Retrieve the location service from the Symfony container
         $locationService = $this->getRepository()->getLocationService();
@@ -91,6 +91,7 @@ class BlogController extends APIViewController
         $posts = array();
         foreach ( $postResults->searchHits as $hit )
         {
+
             $posts[] = $hit->valueObject;
 
             //If any of the posts is newer than the root, use that post's modification date
@@ -127,6 +128,63 @@ class BlogController extends APIViewController
                 'limit' => $limit,
                 'next' => 'Older',
                 'prev' => 'Newer'
+            ),
+            $response
+        );
+    }
+
+    public function feature($feature_id=0, $locationId, $subTreeLocationId){
+         //Retrieve the location service from the Symfony container
+        $locationService = $this->getRepository()->getLocationService();
+        $location = $this->getRepository()->getLocationService()->loadLocation( $locationId );
+
+        //Load the called location (node) from the repository based on the ID
+        $root = $locationService->loadLocation( $subTreeLocationId );
+
+        //Get the modification time from the content object
+        $modificationDate = $root->contentInfo->modificationDate;
+
+        //Retrieve a subtree fetch of the latest posts
+        $postResults = $this->fetchSubTree(
+            $root,
+            array('blog_post'),
+            array(new SortClause\Field('blog_post','publication_date',Query::SORT_DESC)),
+            true
+        );
+
+        //Convert the results from a search result object into a simple array
+        $posts = array();
+        foreach ( $postResults->searchHits as $hit )
+        {
+            $posts[] = $hit->valueObject;
+
+            //If any of the posts is newer than the root, use that post's modification date
+            if ($hit->valueObject->contentInfo->modificationDate > $modificationDate) {
+                $modificationDate = $hit->valueObject->contentInfo->modificationDate;
+            }
+        }
+
+        //Set the etag and modification date on the response
+        $response = $this->buildResponse(
+            __METHOD__ . $subTreeLocationId,
+            $modificationDate
+        );
+
+        $response->headers->set( 'X-Location-Id', $subTreeLocationId );
+
+        //If nothing has been modified, return a 304
+        if ( $response->isNotModified( $this->getRequest() ) )
+        {
+            return $response;
+        }
+
+        //Render the output
+        return $this->render(
+            'BlendPartialContentBundle::feature.html.twig',
+            array(
+                'posts' => $posts,
+                'location' => $location,
+                'post_results' => $postResults
             ),
             $response
         );

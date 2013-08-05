@@ -1,9 +1,16 @@
 {# This template extends pagelayout.html.twig and just replaces the 'content' block #}
 {% extends noLayout ? viewbaseLayout : "BlendPartialContentBundle::pagelayout.html.twig" %}
+
 {% block content %}
     {# Determine the post offset (page) #}
     {% set offset = app.request.attributes.get( 'viewParameters' ).offset ?: 0 %}
     {# The 'location' variable contains info about the current position in the site and some metadata #}
+    <style type="text/css">
+        .sidebar { width: 0px; }
+        .main { margin-left: 120px; }
+    </style>
+
+
     <h1 class="page-title">{{ location.contentInfo.name }}</h1>
     <article class="extra description">
         {# The 'content' variable contains the content object we're viewing #}
@@ -33,3 +40,27 @@
         {'standalone':true}
     % #}
 {% endblock %}
+
+{% block feature %}{% endblock %}
+{% block hex_links %}{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

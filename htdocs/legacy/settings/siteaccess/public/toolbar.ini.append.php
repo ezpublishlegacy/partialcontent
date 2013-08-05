@@ -17,4 +17,7 @@ parent_node=2
 title=Latest
 show_subtree=
 limit=5
+
+[Tool_top_searchbox_2]
+relative_check=yes
 */ ?>
