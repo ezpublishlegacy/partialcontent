@@ -19,7 +19,8 @@ header .header-image {
 	margin-bottom: 30px; 
 	padding: 20px 120px;
 }
-.carousel .item-content { width: 700px; height: 260px; overflow: hidden; display: block; }
+.carousel div.item-content { width: 700px; overflow: hidden; display: block; line-height: 300px; }
+.carousel article { line-height: 260px }
 
 .carousel-control { height: 60px; width: 30px; opacity: .1; background-color: transparent; border: 0px; border-radius: 0px; }
 .carousel-control:hover { opacity: .25; cursor: pointer; }
@@ -40,17 +41,20 @@ header .header-image {
 }
 
 		/** --Text-- **/
-.carousel-inner h2 { font-size: 26px; }
-div.comment-count { display: none; }
+.carousel-inner h2 { font-size: 26px; margin-top: 0px; }
 .carousel p { line-height: 20px; text-align: justify; }
 
 		/** --'Read More' Buttons-- **/
-.carousel #idc-container-parent { float: left; margin-top: 15px; width: 125px; }
-.carousel #idc-container-parent .idc-c-b #IDNewThreadSubmitLI { background-color: #FFF; border-color: #FFF; }
-.carousel #idc-container-parent .idc-c-b #IDNewThreadSubmitLI:hover { background-color: #414141; border-color: #414141; }
+.carousel #idc-container-parent { float: left; margin-top: 15px; width: 125px; line-height: 30px; }
+.carousel #idc-container-parent .idc-c-b #IDNewThreadSubmitLI { 
+	background-color: #FFF; border-color: #FFF; text-align: center; 
+}
+.carousel #idc-container-parent .idc-c-b #IDNewThreadSubmitLI:hover { 
+	background-color: #414141; border-color: #414141; cursor: pointer; 
+}
 .carousel #idc-container-parent .idc-c-b #IDNewThreadSubmitLI:hover span { color: #FFF; }
-.carousel #idc-container-parent a { color: #414141; padding:4px 22px; }
-.carousel #idc-container-parent span { line-height: 30px; }
+.carousel #idc-container-parent a { color: #414141; padding:6px 15px; text-align: center; }
+.carousel #idc-container-parent span { line-height: 30px; width: 125px; }
 
 .carousel .with-image .ezimage-field { 
 	margin: 0px; 
@@ -196,10 +200,12 @@ div.toolbar { display: none;}
 .button { margin-bottom: 30px; margin-top: 15px;}
 .button .idc-r { width: auto; line-height: 26px; }
 .button div { text-align: center; }
-.button .idc-right { width: 125px; }
-.button .idc-right a { padding: 4px 22px; }
+.button .idc-right { width: 125px; text-align: center; cursor: pointer; }
+.button .idc-right a { padding: 6px 15px; }
 .button .idc-c-b { width: 125px; margin: 0px auto; }
 
+
+	/*  Oragne Submit Buttom  */
 #idc-container-parent #idc-container .idc-btn_l span, 
 #idc-container-parent #idc-container .idc-btn_s span {
 	background: #FFF;
@@ -215,6 +221,19 @@ div.toolbar { display: none;}
 
 #idc-container-parent .idc-c-b #IDNewThreadSubmitLI:hover,
 #idc-container-parent .idc-c-b #IDNewThreadSubmitLI:hover span { color: #414141; border-color: #414141; }
+
+	/*  White Pop Message Button  */
+#idc-container-parent #idc-container .idc-btn_s,
+#idc-container-parent #idc-container .idc-btn_l { border-radius: 5px; background-color: #FFF; background-clip: 100% }
+
+#idc-container-parent #idc-container .idc-btn_s:hover,
+#idc-container-parent #idc-container .idc-btn_l:hover { background-color: #414141; }
+
+#idc-container-parent #idc-container #IDCommentPopup .idc-btn_s span,
+#idc-container-parent #idc-container #IDCommentsHead .idc-btn_l span { background-color: transparent; color: #414141; }
+
+#idc-container-parent #idc-container #IDCommentPopup .idc-btn_s:hover span,
+#idc-container-parent #idc-container #IDCommentsHead .idc-btn_l:hover span { color: #FFF; }
 
 /** FONTS **/
 @font-face {
