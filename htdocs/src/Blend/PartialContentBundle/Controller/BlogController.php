@@ -235,9 +235,11 @@ class BlogController extends APIViewController
 
         //Convert the results from a search result object into a simple array
         $locations = array();
+        $display = array();
         foreach ( $results->searchHits as $hit )
         {
             $locations[] = $locationService->loadLocation($hit->valueObject->contentInfo->mainLocationId);
+            $display[] = $hit->valueObject->fields['remove_from_menu']['eng-US']->bool;
         }
 
         $response->headers->set( 'X-Location-Id', $subTreeLocationId );
@@ -248,6 +250,7 @@ class BlogController extends APIViewController
             array(
                 'root' => $root,
                 'locations' => $locations,
+                'hide' => $display,
                 'selectedLocationId' => $selected,
                 'homeLocationId' => $homeLocationId
             ),

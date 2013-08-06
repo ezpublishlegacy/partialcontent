@@ -6,9 +6,14 @@
         <a href="{{ path( root ) }}">Home</a>
     </li>
     {% endif %}
+    {% set count = 0 %}
+
     {% for location in locations %}
-        {% set path = path( location ) %}
-        {% set parts = path|split( '/' )|reverse %}
-        <li class="{{parts[0]}}{{ location.id == selectedLocationId ? ' active' : '' }}"><a href="{{ path( location ) }}">{{ location.contentInfo.name }}</a></li>
+        {% if hide[count] == 0 %}
+            {% set path = path( location ) %}
+            {% set parts = path|split( '/' )|reverse %}
+            <li class="{{parts[0]}}{{ location.id == selectedLocationId ? ' active' : '' }}"><a href="{{ path( location ) }}">{{ location.contentInfo.name }}</a></li>
+        {% endif %}
+        {% set count = count + 1 %}
     {% endfor %}
 </ul>
