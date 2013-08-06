@@ -1,5 +1,6 @@
 
-{% set count = 1 %}
+{% set post_count = 0 %}
+{% set feature_count = 0 %}
 <div id="myCarousel" class="carousel slide">
     <div class="carousel-inner" >
         {% for post in posts %}
@@ -7,9 +8,9 @@
                 
                 {% set img = post.fields.feature_image['eng-US'] %}
           
-                {% if (count == 1) and (img) %}
+                {% if (feature_count == 0) and (img) %}
                 <div class="item with-image active" style="{{ attribute(post.fields, 'feature_style')['eng-US'] }};">
-                {% elseif (count == 1) %}
+                {% elseif (feature_count == 0) %}
                 <div class="item active" style="{{ attribute(post.fields, 'feature_style')['eng-US'] }};">
                 {% elseif (img) %}
                 <div class="item with-image" style="{{ attribute(post.fields, 'feature_style')['eng-US'] }};">
@@ -36,7 +37,7 @@
                             <div id="idc-container-parent" class="buttom white">
                                 <div class="idc-c-b">
                                     <div class="idc-right" id="IDNewThreadSubmitLI">
-                                        <a class="idc-btn_l" href="{{ path(location[count]) }}">
+                                        <a class="idc-btn_l" href="{{ path(location[post_count]) }}">
                                             <span class="idc-r">Read More</span>
                                         </a>
                                     </div>
@@ -49,8 +50,9 @@
                     {% endif %}
                     </div>
                 </div>
-                {% set count = count + 1 %}
+                {% set feature_count = feature_count + 1 %}
             {% endif %}
+            {% set post_count = post_count + 1 %}
         {% endfor %}
     </div>
     <a class="left carousel-control" href="#myCarousel" data-slide="prev"></a>
