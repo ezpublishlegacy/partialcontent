@@ -151,14 +151,15 @@ class BlogController extends APIViewController
             true
         );
 
-        //Convert the results from a search result object into a simple array
         $posts = array();
-        $locations = array();
+        $locations = array(); //Used to store post locations
+
         foreach ( $postResults->searchHits as $hit )
         {
             $posts[] = $hit->valueObject;
-            $locationId = $hit->valueObject->contentInfo->mainLocationId;
-            $locations[] = $this->getRepository()->getLocationService()->loadLocation( $locationId );
+            
+            $locationId = $hit->valueObject->contentInfo->mainLocationId; //Get the main location id
+            $locations[] = $this->getRepository()->getLocationService()->loadLocation( $locationId ); //load location
 
             //If any of the posts is newer than the root, use that post's modification date
             if ($hit->valueObject->contentInfo->modificationDate > $modificationDate) {
