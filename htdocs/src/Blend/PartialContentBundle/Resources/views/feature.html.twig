@@ -1,16 +1,15 @@
 
-
+{% set count = 1 %}
 <div id="myCarousel" class="carousel slide">
     <div class="carousel-inner" >
         {% for post in posts %}
-      
             {% if post.fields.feature['eng-US'] == '1' %}
-                {% set feature_id = feature_id + 1 %}
+                
                 {% set img = post.fields.feature_image['eng-US'] %}
-
-                {% if (feature_id == 1) and (img) %}
+          
+                {% if (count == 1) and (img) %}
                 <div class="item with-image active" style="{{ attribute(post.fields, 'feature_style')['eng-US'] }};">
-                {% elseif (feature_id == 1) %}
+                {% elseif (count == 1) %}
                 <div class="item active" style="{{ attribute(post.fields, 'feature_style')['eng-US'] }};">
                 {% elseif (img) %}
                 <div class="item with-image" style="{{ attribute(post.fields, 'feature_style')['eng-US'] }};">
@@ -19,7 +18,12 @@
                 {% endif %}
                     <div class="item-content">
                         <article class="summary blog_post">
-                            <h2>{{ post.fields.title['eng-US'] }}</h2>
+                            {% if post.fields.feature_title['eng-US'] %}
+                                {% set title = post.fields.feature_title['eng-US'] %}
+                            {% else %}
+                                {% set title = post.fields.title['eng-US'] %}
+                            {% endif %}
+                            <h2>{{ title }}</h2>
                             <div class="ezxmltext-field">
                                 {% if post.fields.summary['eng-US'].xml.textContent %}
                                     {{ ez_render_field( post, "summary" ) }}
@@ -32,7 +36,7 @@
                             <div id="idc-container-parent" class="buttom white">
                                 <div class="idc-c-b">
                                     <div class="idc-right" id="IDNewThreadSubmitLI">
-                                        <a class="idc-btn_l" href="#">
+                                        <a class="idc-btn_l" href="{{ path(location[count]) }}">
                                             <span class="idc-r">Read More</span>
                                         </a>
                                     </div>
@@ -45,6 +49,7 @@
                     {% endif %}
                     </div>
                 </div>
+                {% set count = count + 1 %}
             {% endif %}
         {% endfor %}
     </div>

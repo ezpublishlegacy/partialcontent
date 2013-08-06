@@ -133,10 +133,9 @@ class BlogController extends APIViewController
         );
     }
 
-    public function feature($feature_id=0, $locationId, $subTreeLocationId){
+    public function feature($subTreeLocationId){
          //Retrieve the location service from the Symfony container
         $locationService = $this->getRepository()->getLocationService();
-        $location = $this->getRepository()->getLocationService()->loadLocation( $locationId );
 
         //Load the called location (node) from the repository based on the ID
         $root = $locationService->loadLocation( $subTreeLocationId );
@@ -154,9 +153,12 @@ class BlogController extends APIViewController
 
         //Convert the results from a search result object into a simple array
         $posts = array();
+        $locations = array();
         foreach ( $postResults->searchHits as $hit )
         {
             $posts[] = $hit->valueObject;
+            $locationId = $hit->valueObject->contentInfo->mainLocationId;
+            $locations[] = $this->getRepository()->getLocationService()->loadLocation( $locationId );
 
             //If any of the posts is newer than the root, use that post's modification date
             if ($hit->valueObject->contentInfo->modificationDate > $modificationDate) {
@@ -183,8 +185,7 @@ class BlogController extends APIViewController
             'BlendPartialContentBundle::feature.html.twig',
             array(
                 'posts' => $posts,
-                'location' => $location,
-                'post_results' => $postResults
+                'location' => $locations
             ),
             $response
         );
