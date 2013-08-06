@@ -1,10 +1,11 @@
 {# Paginator courtesy Damien Pobel #}
 {% if total > limit %}
-    {% set total_pages = (total / limit)|number_format() + 1 %}
+    {% set total_pages = (total / limit)|number_format() %}
+        {% if (total % limit) > 0 %} {% set total_pages = total_pages + 1 %} {% endif %}
     {% set current = (offset / limit)|number_format() + 1 %}
     {% set next_offset = offset + limit %}
     {% set prev_offset = offset - limit %}
-    {% set left = 6 %}
+    {% set left = 5 %}
     {% set right = 6 %}
     <div class="pagenavigator">
         <p>
