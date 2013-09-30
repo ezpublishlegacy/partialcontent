@@ -18,9 +18,9 @@ header .header-image {
 	margin-top: 20px;
 	margin-bottom: 30px; 
 	padding: 20px 120px;
+	vertical-align: middle;
 }
-.carousel div.item-content { width: 700px; overflow: hidden; display: block; line-height: 300px; }
-.carousel article { line-height: 260px }
+.carousel .item-content { width: 700px;  }
 
 .carousel-control { height: 60px; width: 30px; opacity: .1; background-color: transparent; border: 0px; border-radius: 0px; }
 .carousel-control:hover { opacity: .25; cursor: pointer; }
@@ -45,7 +45,7 @@ header .header-image {
 .carousel p { line-height: 20px; text-align: justify; }
 
 		/** --'Read More' Buttons-- **/
-.carousel #idc-container-parent { float: left; margin-top: 15px; width: 125px; line-height: 30px; }
+.carousel #idc-container-parent { float: left; margin-top: 15px; width: 125px;  }
 .carousel #idc-container-parent .idc-c-b #IDNewThreadSubmitLI { 
 	background-color: #FFF; border-color: #FFF; text-align: center; 
 }

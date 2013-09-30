@@ -1,9 +1,21 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.carousel-inner article').each(function(){
+            var height = $(this).height();
+            alert(height);
+            var top_margin = (260 - height) / 2;
+            $(this).css('top-margin', top_margin);
+        });
+    });
+</script>
+
 
 {% set post_count = 0 %}
 {% set feature_count = 0 %}
 <div id="myCarousel" class="carousel slide">
     <div class="carousel-inner" >
         {% for post in posts %}
+        {{ (attribute('.item', 'height')) }}
             {% if post.fields.feature['eng-US'] == '1' %}
                 
                 {% set img = post.fields.feature_image['eng-US'] %}
